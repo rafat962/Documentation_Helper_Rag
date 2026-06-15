@@ -28,12 +28,16 @@ embeddings = GoogleGenerativeAIEmbeddings(
         show_progress_bar=False,
         chunk_size=50,
         retry_min_seconds=15,
-        output_dimensionality=1536
+        output_dimensionality=3072
     )
 
 
-vectorstore = Chroma(persist_directory="chroma_db", embedding_function=embeddings)
+# vectorstore = Chroma(persist_directory="chroma_db", embedding_function=embeddings)
 # chroma = Chroma(persist_directory="chroma_db", embedding_function=embeddings)
+vectorstore = PineconeVectorStore(
+    index_name="compass",
+    embedding=embeddings
+)
 # vectorstore = PineconeVectorStore(
 #     index_name=os.getenv("INDEX_NAME"),
 #     embedding=embeddings
